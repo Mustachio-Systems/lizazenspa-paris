@@ -1,0 +1,461 @@
+/* css/styles.css - 2026 LIQUID ZEN + GRAIN TEXTURE */
+
+/* --- 1. CORE VARIABLES --- */
+:root {
+    --bg-deep: #050505;        /* True Black */
+    --bg-soft: #0a0a0a;        /* Soft Black */
+    --gold: #D4AF37;           /* Logo Gold */
+    --gold-dim: #8a701f;       /* Muted Gold for text */
+    --text-main: #EAEAEA;      /* Slightly softer white for eye comfort */
+    --text-muted: #999999;
+    
+    /* The "Liquid" Gradients */
+    --glass-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.0) 100%);
+    --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFE588 100%);
+    
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    /* Deep Mineral Gradient Base */
+    background: radial-gradient(circle at 50% 0%, #111111 0%, #050505 80%);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* --- THE TEXTURE OVERLAY (Refined) --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Finer noise pattern for a "Premium Paper" feel */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04; /* Kept very subtle */
+    pointer-events: none;
+    z-index: 9999; /* Ensures texture sits on top of everything */
+    mix-blend-mode: overlay;
+}
+
+a { text-decoration: none; transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1); }
+ul { list-style: none; }
+
+/* --- 2. NAVIGATION (Floating) --- */
+.glass-nav {
+    position: fixed; top: 0; width: 100%; padding: 20px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(5, 5, 5, 0.7); 
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.logo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; color: #fff; }
+.logo span { color: var(--gold); font-style: italic; }
+
+.nav-right { display: flex; align-items: center; gap: 30px; }
+.nav-link { 
+    color: var(--text-muted); font-size: 0.9rem; font-weight: 500;
+    position: relative;
+}
+.nav-link:hover { color: #fff; }
+
+/* "Book Now" Button - The Glow Pill */
+.btn-gold {
+    background: var(--gold-gradient);
+    color: #050505;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+    transition: 0.4s ease;
+}
+.btn-gold:hover { transform: scale(1.05); box-shadow: 0 0 35px rgba(212, 175, 55, 0.3); color: #000; }
+
+.btn-outline {
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 12px 30px; border-radius: 50px;
+    font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+
+/* --- 3. HERO SECTION (Seamless) --- */
+.hero {
+    min-height: 90vh;
+    padding: 120px 5% 0;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    /* Soft gradient mask for smooth transition */
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+}
+
+.hero-container {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 60px; max-width: 1200px; width: 100%;
+}
+
+.hero-text-content { flex: 1; z-index: 10; }
+.thai-ornament { color: var(--gold); font-size: 2rem; margin-bottom: 20px; opacity: 0.8; }
+.subtitle { color: var(--gold-dim); letter-spacing: 4px; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 20px; display: block; }
+
+.hero h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    line-height: 1.05; margin-bottom: 30px;
+    /* Gradient Text */
+    background: linear-gradient(to right, #ffffff, #aaaaaa);
+    -webkit-background-clip: text; color: transparent;
+}
+.text-gold { color: var(--gold); -webkit-text-fill-color: var(--gold); }
+
+.hero p {
+    color: var(--text-muted); font-size: 1.1rem; max-width: 440px; margin-bottom: 40px; font-weight: 300;
+}
+
+.hero-image-content { flex: 1; display: flex; justify-content: flex-end; position: relative; }
+.hero-image-content::before {
+    content: ''; position: absolute; top: 20%; left: 20%; width: 60%; height: 60%;
+    background: var(--gold); filter: blur(120px); opacity: 0.15; z-index: -1;
+}
+
+.image-frame {
+    width: 100%; max-width: 420px; height: 550px;
+    border-radius: 200px 200px 0 0;
+    overflow: hidden;
+}
+.image-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.9) contrast(1.1);
+    transition: transform 2s cubic-bezier(0.1, 0, 0.1, 1);
+}
+.image-frame:hover img { transform: scale(1.05); }
+
+
+/* --- 4. ABOUT SECTION --- */
+.about-section { padding: 100px 5%; text-align: center; } /* Removed bg-color to let body gradient show */
+.about-grid { max-width: 800px; margin: 0 auto; }
+
+.divider-thai {
+    width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    margin: 30px auto;
+}
+.highlight-text { font-family: var(--font-heading); font-size: 1.6rem; color: #fff; margin-bottom: 20px; }
+
+.features-list { display: flex; justify-content: center; gap: 15px; margin-top: 40px; flex-wrap: wrap; }
+.features-list span {
+    background: rgba(255,255,255,0.03); color: var(--text-muted);
+    padding: 10px 24px; border-radius: 100px; font-size: 0.9rem;
+    transition: 0.3s; border: 1px solid rgba(255,255,255,0.05);
+}
+.features-list span:hover { background: rgba(255,255,255,0.08); color: #fff; transform: translateY(-3px); border-color: var(--gold); }
+
+
+/* --- 5. SERVICES --- */
+.services-section { padding: 100px 5%; position: relative; }
+
+.section-header { text-align: center; margin-bottom: 80px; }
+.section-header h2 { font-family: var(--font-heading); font-size: 3rem; color: #fff; margin-bottom: 10px; }
+
+.cards-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.glass-card {
+    background: var(--glass-gradient);
+    padding: 40px;
+    border-radius: 24px;
+    position: relative;
+    transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    border: 1px solid rgba(255, 255, 255, 0.03); /* Extremely subtle border */
+}
+
+.glass-card:hover {
+    transform: translateY(-10px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+.card-icon { font-size: 2.5rem; color: var(--gold); margin-bottom: 30px; }
+.glass-card h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 15px; color: #fff; }
+.card-desc { color: var(--text-muted); margin-bottom: 40px; min-height: 50px; font-size: 0.95rem; }
+
+.price-list li {
+    display: flex; justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+.price-list li strong { color: #fff; font-weight: 500; }
+.price-list li:last-child { border-bottom: none; }
+
+
+/* --- NEW INFO SECTION STYLES --- */
+
+/* The Split Layout */
+.info-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Split 50/50 */
+    gap: 40px;
+    align-items: stretch;
+}
+
+/* 1. THE MAP CARD (Left Side) */
+.map-card {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+    border-radius: 24px;
+    padding: 40px;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Subtle map pattern in background */
+.map-card::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5; z-index: 0;
+}
+
+.map-content { position: relative; z-index: 1; }
+
+.map-card h3 { 
+    font-family: var(--font-heading); color: var(--gold); 
+    font-size: 1.8rem; margin-bottom: 15px; 
+}
+.address-text { 
+    font-size: 1.1rem; color: #fff; margin-bottom: 25px; 
+    border-left: 2px solid var(--gold); padding-left: 15px; 
+}
+
+/* Paris Transport Badges */
+.transport-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+
+.metro-badge {
+    display: flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 50%;
+    font-weight: 800; font-size: 0.9rem; color: #fff;
+    border: 2px solid #fff;
+}
+.metro-badge.m12 { background-color: #008f4f; /* Authentic RATP Line 12 Green */ }
+
+.bus-badge, .tram-badge {
+    background: #333; color: #fff; border: 1px solid #555;
+    padding: 4px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem;
+}
+.tram-badge { background: #fff; color: #000; border: 2px solid #ccc; } /* Trams are usually white */
+
+/* Navigation Button */
+.direction-btn {
+    margin-top: 30px; width: 100%; justify-content: center;
+    background: #fff; color: #000 !important; /* High contrast for action */
+}
+.direction-btn:hover {
+    background: var(--gold); transform: translateY(-3px);
+}
+
+/* 2. THE DETAILS COLUMN (Right Side) */
+.details-column { display: flex; flex-direction: column; gap: 20px; }
+
+.detail-card {
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 30px;
+}
+.card-icon-small { font-size: 1.5rem; color: var(--gold); margin-top: 5px; }
+
+.time-row {
+    display: flex; justify-content: space-between; width: 100%;
+    margin-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.1);
+    padding-bottom: 8px; color: var(--text-muted);
+}
+.time-row strong { color: #fff; }
+
+.text-link { 
+    color: var(--gold); font-size: 0.9rem; font-weight: 600; margin-top: 10px; display: inline-block; 
+}
+.text-link:hover { text-decoration: underline; color: #fff; }
+
+/* Responsive */
+@media (max-width: 900px) {
+    .info-layout { grid-template-columns: 1fr; gap: 30px; }
+    .map-card { padding: 30px; text-align: center; }
+    .address-text { border-left: none; }
+    .transport-row { justify-content: center; }
+}
+
+
+/* --- 7. FOOTER (2026 Redesign) --- */
+.footer {
+    background: #020202; /* Deepest black for contrast */
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Subtle glass edge */
+    padding: 80px 5% 30px;
+    margin-top: 50px;
+    font-size: 0.95rem;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr; /* Brand column is wider */
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto 60px;
+}
+
+.footer-col h4 {
+    font-family: var(--font-heading);
+    color: #fff;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+/* Brand Column Styling */
+.brand-col .logo { margin-bottom: 15px; }
+.footer-tagline { 
+    color: var(--text-muted); 
+    margin-bottom: 25px; 
+    max-width: 300px; 
+    line-height: 1.6;
+}
+
+/* Social Bubbles */
+.social-links { display: flex; gap: 15px; }
+.social-links a {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; 
+    transition: 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.social-links a:hover { 
+    background: var(--gold); 
+    color: #000; 
+    transform: translateY(-3px); 
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+}
+
+/* Navigation Links */
+.links-col { display: flex; flex-direction: column; gap: 12px; }
+.links-col a { 
+    color: var(--text-muted); 
+    transition: 0.3s; 
+    width: fit-content; 
+    position: relative;
+}
+.links-col a:hover { 
+    color: var(--gold); 
+    padding-left: 5px; /* Subtle slide effect */
+}
+
+/* Contact Details */
+.contact-col p { 
+    display: flex; 
+    gap: 15px; 
+    align-items: flex-start; 
+    margin-bottom: 15px; 
+    color: var(--text-muted); 
+}
+.contact-col i { 
+    color: var(--gold); 
+    margin-top: 4px; 
+}
+
+/* Bottom Bar & Creator Credit */
+.footer-bottom {
+    max-width: 1200px; margin: 0 auto;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+    color: #555;
+    font-size: 0.85rem;
+}
+
+.creator-credit a { 
+    color: #777; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    font-size: 0.75rem; 
+    letter-spacing: 1px;
+}
+.creator-credit a:hover { 
+    color: var(--gold); 
+    text-decoration: underline;
+}
+
+/* Mobile Responsiveness for Footer */
+@media (max-width: 768px) {
+    .footer-content { 
+        grid-template-columns: 1fr; 
+        gap: 40px; 
+        text-align: center; 
+    }
+    .footer-tagline { margin: 0 auto 25px; }
+    .social-links { justify-content: center; }
+    
+    .links-col { align-items: center; }
+    .contact-col p { justify-content: center; }
+    
+    .footer-bottom { 
+        flex-direction: column; 
+        text-align: center; 
+        gap: 15px;
+    }
+}
+
+/* --- 8. ANIMATIONS --- */
+.reveal-up, .reveal-left, .reveal-right {
+    opacity: 0;
+    transition: 1s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.reveal-up { transform: translateY(60px); }
+.reveal-left { transform: translateX(-50px); }
+.reveal-right { transform: translateX(50px); }
+
+.active { opacity: 1; transform: translate(0, 0); }
+
+/* Stagger Delays */
+.glass-card:nth-child(1) { transition-delay: 0.1s; }
+.glass-card:nth-child(2) { transition-delay: 0.2s; }
+.glass-card:nth-child(3) { transition-delay: 0.3s; }
+
+/* --- MOBILE --- */
+@media (max-width: 900px) {
+    .hero-container { flex-direction: column; text-align: center; gap: 40px; }
+    .hero h1 { font-size: 3rem; }
+    .image-frame { margin: 0 auto; height: 400px; }
+    .nav-link { display: none; }
+    .info-grid { gap: 40px; }
+}
+
+/* --- BACKGROUND ANIMATION --- */
+#sand-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    
+    /* 2026 Tweak: Screen Blend Mode */
+    mix-blend-mode: screen; 
+    opacity: 0.8; /* Higher opacity because blend mode softens it */
+}
