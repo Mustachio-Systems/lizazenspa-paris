@@ -109,7 +109,28 @@ document.addEventListener("DOMContentLoaded", () => {
         if(footerBtn) footerBtn.href = spaData.contact.whatsapp;
     };
 
+    /* --- COOKIE BANNER LOGIC --- */
+    const initCookieBanner = () => {
+        const banner = document.getElementById('cookie-banner');
+        const btn = document.getElementById('accept-cookies');
+        
+        // Check if user already accepted
+        if (!localStorage.getItem('cookiesAccepted')) {
+            if(banner) {
+                banner.style.display = 'flex'; // Show banner
+                
+                if(btn) {
+                    btn.addEventListener('click', () => {
+                        localStorage.setItem('cookiesAccepted', 'true');
+                        banner.style.opacity = '0';
+                        setTimeout(() => banner.style.display = 'none', 500);
+                    });
+                }
+            }
+        }
+    };
     // Load Components
+    loadComponent("cookie-placeholder", "components/cookie-banner.html", initCookieBanner);
     loadComponent("nav-placeholder", "components/navbar.html", initNavbar);
     loadComponent("reviews-placeholder", "components/reviews.html", () => console.log("Reviews Loaded")); 
     loadComponent("footer-placeholder", "components/footer.html", initFooter);

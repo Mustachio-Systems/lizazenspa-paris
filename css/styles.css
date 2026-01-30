@@ -657,3 +657,59 @@ a.logo {
     mix-blend-mode: screen; 
     opacity: 0.8; /* Higher opacity because blend mode softens it */
 }
+
+/* --- LEGAL PAGE STYLES --- */
+.legal-title {
+    font-family: var(--font-heading);
+    color: var(--gold);
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    border-left: 3px solid var(--gold);
+    padding-left: 15px;
+}
+
+.legal-text {
+    color: #ccc;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.legal-list {
+    list-style: disc;
+    padding-left: 20px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.legal-list li { margin-bottom: 10px; }
+
+/* --- COOKIE BANNER --- */
+.cookie-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    max-width: 400px;
+    background: rgba(15, 15, 15, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 20px;
+    border-radius: 12px;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: none; /* Hidden by default, JS will show it */
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cookie-banner p {
+    font-size: 0.85rem;
+    color: #ccc;
+    margin: 0;
+}
+
+/* Mobile Tweak */
+@media (max-width: 600px) {
+    .cookie-banner { left: 10px; right: 10px; bottom: 10px; }
+}
