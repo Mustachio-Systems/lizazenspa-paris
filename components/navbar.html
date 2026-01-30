@@ -1,10 +1,28 @@
 <nav class="glass-nav">
-        <div class="logo">Liza<span>Zen</span></div>
-        <div class="nav-right">
-            <a href="index.html" class="nav-link">Accueil</a>
-            <a href="services.html" class="nav-link active">Prestations</a>
-            <a href="https://wa.me/33603693649" id="nav-cta" class="btn-gold">
-                <span>Réserver</span> <i class="fa-brands fa-whatsapp"></i>
-            </a>
+    <a href="index.html" class="logo">Liza<span>Zen</span></a>
+
+    <div class="nav-right desktop-only">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="services.html" class="nav-link">Prestations</a>
+        <a href="https://wa.me/33603693649" id="nav-cta" class="btn-gold">
+            <span>Réserver</span> <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <div class="mobile-controls mobile-only">
+        <a href="https://wa.me/33603693649" class="btn-gold btn-small">
+            <span>Réserver</span>
+        </a>
+        <div class="hamburger" id="hamburger-btn">
+            <span></span>
+            <span></span>
         </div>
-    </nav>
+    </div>
+
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <div class="mobile-links">
+            <a href="index.html">Accueil</a>
+            <a href="services.html">Carte des Soins</a>
+        </div>
+    </div>
+</nav>

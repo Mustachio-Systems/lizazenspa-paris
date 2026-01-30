@@ -18,34 +18,21 @@
 
     <div id="nav-placeholder"></div>
 
-    <header class="hero" style="min-height: 50vh; padding-top: 100px;">
+    <header class="hero" style="min-height: 45vh; padding-top: 120px;">
         <div class="hero-container" style="justify-content: center; text-align: center;">
             <div class="hero-text-content reveal-up">
-                <span class="subtitle">Bien-être et Tradition</span>
+                <span class="subtitle">Savoir-faire et Sérénité</span>
                 <h1>Carte des Soins</h1>
-                <p style="margin: 0 auto;">Découvrez notre gamme complète de massages thérapeutiques et relaxants.</p>
+                <p style="margin: 0 auto; max-width: 600px;">Explorez nos rituels ancestraux pour une harmonie totale du corps et de l'esprit.</p>
             </div>
         </div>
     </header>
 
-    <section class="about-section">
+    <section class="about-section" style="padding-top: 0;">
         <div class="container">
-            <div class="section-header reveal-up">
-                <i class="fa-solid fa-child-reaching icon-header" style="color: var(--gold); font-size: 2rem;"></i>
-                <h2>Zones de Soin</h2>
-                <div class="divider-thai"></div>
-                <p>Nous adaptons nos techniques à vos besoins</p>
-            </div>
-            
             <div class="features-list reveal-up">
-                <span>Corps</span>
-                <span>Épaules</span>
-                <span>Jambes</span>
-                <span>Pieds</span>
-                <span>Tête</span>
-                <span>Dos</span>
-                <span>Mains</span>
-                <span>Ventre</span>
+                <span>Corps</span><span>Épaules</span><span>Jambes</span><span>Pieds</span>
+                <span>Tête</span><span>Dos</span><span>Mains</span><span>Ventre</span>
             </div>
         </div>
     </section>
@@ -53,100 +40,68 @@
     <section class="services-section">
         <div class="container">
             
-            <div class="glass-card reveal-up" style="margin-bottom: 40px;">
-                <div class="cat-header" style="text-align: center; margin-bottom: 30px;">
-                    <h3 style="font-family: var(--font-heading); font-size: 2rem; color: #fff;">Massage Thaï</h3>
-                    <span style="color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px;">Fort • Doux • Relaxant aux Huiles</span>
+            <div class="cards-grid">
+                <div class="glass-card reveal-up">
+                    <div class="card-icon"><i class="fa-solid fa-hands-holding-circle"></i></div>
+                    <h3>Massages Thaï</h3>
+                    <p class="card-desc">Soin relaxant ou fort aux huiles chaudes, ou traditionnel sans huile.</p>
+                    <ul class="price-list" id="thai-price-list">
+                        </ul>
                 </div>
-                
-                <ul class="price-list">
-                    <li>
-                        <span>Séance Découverte (30 min)</span>
-                        <strong>70€</strong>
-                    </li>
-                    <li>
-                        <span>Relaxation Complète (1h)</span>
-                        <strong>100€</strong>
-                    </li>
-                    <li>
-                        <span>Lâcher-prise (1h30)</span>
-                        <strong>145€</strong>
-                    </li>
-                    <li>
-                        <span style="color: var(--gold);">Rituel Signature + Soin Visage (2h)</span>
-                        <strong>190€</strong>
-                    </li>
-                </ul>
+
+                <div class="glass-card reveal-up" style="transition-delay: 0.1s;">
+                    <div class="card-icon"><i class="fa-solid fa-flask"></i></div>
+                    <h3>Thérapies Ciblées</h3>
+                    <p class="card-desc">Ventouses traditionnelles, Pierres chaudes ou Shiatsu profond.</p>
+                    <ul class="price-list" id="ventouse-price-list">
+                        </ul>
+                </div>
+
+                <div class="glass-card reveal-up" style="transition-delay: 0.2s;">
+                    <div class="card-icon"><i class="fa-solid fa-gem"></i></div>
+                    <h3>Duo & Beauté</h3>
+                    <p class="card-desc">Partagez un moment à deux ou profitez de nos soins du visage.</p>
+                    <ul class="price-list" id="stone-price-list">
+                        </ul>
+                </div>
             </div>
 
-            <div class="glass-card reveal-up" style="margin-bottom: 40px;">
-                <div class="cat-header" style="text-align: center; margin-bottom: 30px;">
-                    <h3 style="font-family: var(--font-heading); font-size: 2rem; color: #fff;">Huiles & Pierres Chaudes</h3>
-                    <span style="color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px;">Détente musculaire profonde & chaleur</span>
-                </div>
-                <ul class="price-list">
-                    <li>
-                        <span>Séance Complète (1h)</span>
-                        <strong>120€</strong>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="glass-card reveal-up">
-                <div class="cat-header" style="text-align: center; margin-bottom: 30px;">
-                    <h3 style="font-family: var(--font-heading); font-size: 2rem; color: #fff;">Thérapie Ventouse</h3>
-                    <span style="color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px;">Guérison ancestrale</span>
-                </div>
-                <p class="card-desc" style="text-align: center;">
-                    La thérapie par ventouses est une méthode de guérison ancestrale qui peut soulager les maux de dos, 
-                    les douleurs cervicales et les maux de tête.
-                </p>
-                <ul class="price-list">
-                    <li>
-                        <span>Soin + Ventouse (1h)</span>
-                        <strong>150€</strong>
-                    </li>
-                    <li>
-                        <span>Soin Profond (1h30)</span>
-                        <strong>190€</strong>
-                    </li>
-                    <li>
-                        <span>Thérapie Totale (2h)</span>
-                        <strong>250€</strong>
-                    </li>
-                </ul>
-            </div>
-
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 40px; font-style: italic;">
+                (*) Méthode de guérison ancestrale soulageant les maux de dos, douleurs cervicales et maux de tête.
+            </p>
         </div>
     </section>
 
     <section class="info-section">
         <div class="container">
             <div class="section-header reveal-up">
-                <i class="fa-solid fa-camera-retro icon-header" style="color: var(--gold); font-size: 2rem;"></i>
                 <h2>L'Atmosphère</h2>
                 <div class="divider-thai"></div>
             </div>
             
             <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <div class="image-frame reveal-up" style="height: 250px; border-radius: 12px;">
-                    <img src="assets/images/gallery1.jpg" alt="Spa Room">
+                <div class="image-frame reveal-up" style="height: 280px; border-radius: 15px;">
+                    <img src="assets/images/zen-spa-room.jpg" alt="Salle de soin">
                 </div>
-                <div class="image-frame reveal-up" style="height: 250px; border-radius: 12px; transition-delay: 0.1s;">
-                    <img src="assets/images/gallery2.jpg" alt="Massage">
+                <div class="image-frame reveal-up" style="height: 280px; border-radius: 15px; transition-delay: 0.1s;">
+                    <img src="assets/images/zen-spa-massage.jpg" alt="Détail massage">
                 </div>
-                <div class="image-frame reveal-up" style="height: 250px; border-radius: 12px; transition-delay: 0.2s;">
-                    <img src="assets/images/gallery3.jpg" alt="Detail">
+                <div class="image-frame reveal-up" style="height: 280px; border-radius: 15px; transition-delay: 0.2s;">
+                    <img src="assets/images/zen-spa.jpg" alt="Décoration zen">
                 </div>
-                <div class="image-frame reveal-up" style="height: 250px; border-radius: 12px; transition-delay: 0.3s;">
-                    <img src="assets/images/gallery4.jpg" alt="Zen">
+                <div class="image-frame reveal-up" style="height: 280px; border-radius: 15px; transition-delay: 0.3s;">
+                    <img src="assets/images/zen-spa-store-front.jpg" alt="Extérieur du salon">
                 </div>
             </div>
         </div>
     </section>
 
+    <div id="reviews-placeholder"></div>
+
     <div id="footer-placeholder"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script> 
     <script src="js/content.js"></script>
     <script src="js/main.js"></script>
 </body>

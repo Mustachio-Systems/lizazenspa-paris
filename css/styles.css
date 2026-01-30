@@ -46,46 +46,133 @@ body::before {
 a { text-decoration: none; transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1); }
 ul { list-style: none; }
 
-/* --- 2. NAVIGATION (Floating) --- */
+/* --- 2. NAVIGATION (Responsive & Floating) --- */
 .glass-nav {
-    position: fixed; top: 0; width: 100%; padding: 20px 5%;
-    display: flex; justify-content: space-between; align-items: center;
-    background: rgba(5, 5, 5, 0.7); 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; /* Forces bar to fit screen width exactly */
+    padding: 15px 5%; /* Adjusted for safe area */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    background: rgba(5, 5, 5, 0.85); 
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    box-sizing: border-box; /* Crucial: Keeps padding inside the width */
 }
 
-.logo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; color: #fff; }
+/* Logo Styling */
+a.logo { 
+    font-family: var(--font-heading); 
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    color: #fff; 
+    text-decoration: none;
+    z-index: 1005; 
+    white-space: nowrap; /* Prevents logo breaking */
+}
 .logo span { color: var(--gold); font-style: italic; }
 
-.nav-right { display: flex; align-items: center; gap: 30px; }
+/* Desktop Navigation (Hidden on Mobile) */
+.nav-right.desktop-only { 
+    display: flex; 
+    align-items: center; 
+    gap: 30px; 
+}
+
 .nav-link { 
     color: var(--text-muted); font-size: 0.9rem; font-weight: 500;
     position: relative;
+    transition: 0.3s;
 }
-.nav-link:hover { color: #fff; }
+.nav-link:hover, .nav-link.active { color: #fff; }
+.nav-link.active::after {
+    content: ''; position: absolute; bottom: -5px; left: 0; 
+    width: 100%; height: 1px; background: var(--gold);
+}
 
-/* "Book Now" Button - The Glow Pill */
+/* Buttons */
 .btn-gold {
     background: var(--gold-gradient);
     color: #050505;
-    padding: 10px 24px;
+    padding: 10px 20px;
     border-radius: 50px;
     font-weight: 600;
     display: flex; align-items: center; gap: 8px;
     box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
     transition: 0.4s ease;
+    white-space: nowrap;
+    font-size: 0.9rem;
 }
 .btn-gold:hover { transform: scale(1.05); box-shadow: 0 0 35px rgba(212, 175, 55, 0.3); color: #000; }
 
-.btn-outline {
-    border: 1px solid rgba(255,255,255,0.2);
-    color: #fff;
-    padding: 12px 30px; border-radius: 50px;
-    font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+.btn-small { padding: 8px 16px; font-size: 0.85rem; }
+
+/* --- MOBILE SPECIFIC STYLES --- */
+
+.mobile-only { display: none; } /* Hidden by default */
+
+/* Hamburger Icon */
+.hamburger {
+    width: 30px; height: 20px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    cursor: pointer;
+    z-index: 1005;
+    margin-left: 10px; /* Adds space between button and icon */
 }
-.btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+.hamburger span {
+    display: block; width: 100%; height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+/* Hamburger Animation */
+.hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+/* Fix for 2-line structure if you prefer that look */
+.hamburger span:nth-child(2) { margin-top: auto; } 
+
+/* Mobile Overlay Menu */
+.mobile-menu-overlay {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100vh;
+    background: rgba(5, 5, 5, 0.98);
+    display: flex; flex-direction: column; 
+    align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: 0.4s ease;
+    z-index: 1000;
+}
+.mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
+
+.mobile-links { display: flex; flex-direction: column; gap: 30px; text-align: center; }
+.mobile-links a {
+    font-family: var(--font-heading); font-size: 2rem; color: #fff;
+    opacity: 0; transform: translateY(20px); transition: 0.4s ease;
+}
+.mobile-menu-overlay.active .mobile-links a { opacity: 1; transform: translateY(0); }
+
+
+/* --- RESPONSIVE BREAKPOINT (Tablets & Phones) --- */
+@media (max-width: 900px) {
+    /* Safe padding for mobile screens */
+    .glass-nav { padding: 15px 20px; } 
+    
+    /* HIDE Desktop Menu */
+    .desktop-only { display: none !important; }
+    
+    /* SHOW Mobile Controls */
+    .mobile-only { 
+        display: flex !important; 
+        align-items: center; 
+        /* Removed large gap, handled by margin-left on hamburger above */
+    }
+}
 
 /* --- 3. HERO SECTION (Seamless) --- */
 .hero {
@@ -295,6 +382,79 @@ ul { list-style: none; }
     .transport-row { justify-content: center; }
 }
 
+/* --- REVIEWS SECTION --- */
+.reviews-section {
+    padding: 80px 5%;
+    position: relative;
+    /* Subtle background to separate it from the footer */
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.02)); 
+}
+
+.reviews-scroller {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto; /* Allows horizontal scrolling */
+    padding-bottom: 30px; /* Space for scrollbar */
+    scroll-snap-type: x mandatory; /* Makes cards snap into place */
+    -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+}
+
+/* Hide scrollbar visually but keep functionality */
+.reviews-scroller::-webkit-scrollbar { height: 6px; }
+.reviews-scroller::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+.reviews-scroller::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+
+.review-card {
+    min-width: 350px; /* Ensures cards don't shrink */
+    max-width: 350px;
+    flex-shrink: 0;
+    scroll-snap-align: center; /* Snaps card to center of screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.review-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+}
+.stars { color: var(--gold); font-size: 0.9rem; }
+.review-date { color: var(--text-muted); font-size: 0.8rem; }
+
+.review-text {
+    font-style: italic;
+    color: #ddd;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+.reviewer {
+    display: flex; align-items: center; gap: 15px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 15px;
+}
+
+.reviewer-initial {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--gold), #9e7f2a);
+    color: #000;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+}
+
+.reviewer strong { display: block; color: #fff; font-size: 0.95rem; }
+.reviewer .badge { 
+    font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; 
+}
+
+/* Mobile Tweak */
+@media (max-width: 768px) {
+    .review-card { min-width: 300px; max-width: 300px; }
+}
+
 
 /* --- 7. FOOTER (2026 Redesign) --- */
 .footer {
@@ -321,6 +481,21 @@ ul { list-style: none; }
     font-size: 1.2rem;
     margin-bottom: 25px;
     letter-spacing: 1px;
+}
+
+.section-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 80px;
+    opacity: 0.8;
+}
+
+.line-deco {
+    height: 1px;
+    width: 60px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
 }
 
 /* Brand Column Styling */
@@ -399,6 +574,26 @@ ul { list-style: none; }
     text-decoration: underline;
 }
 
+.btn-outline {
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #ccc;
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: 0.4s ease;
+    background: transparent;
+}
+
+.btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+    transform: translateY(-2px);
+    background: rgba(212, 175, 55, 0.05);
+}
+
 /* Mobile Responsiveness for Footer */
 @media (max-width: 768px) {
     .footer-content { 
@@ -417,6 +612,9 @@ ul { list-style: none; }
         text-align: center; 
         gap: 15px;
     }
+
+    .line-deco { width: 30px; } /* Smaller lines on phone */
+    .section-footer { gap: 15px; margin-top: 60px; }
 }
 
 /* --- 8. ANIMATIONS --- */
