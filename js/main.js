@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // WhatsApp Link Logic
         const waLink = typeof spaData !== 'undefined' ? spaData.contact.whatsapp : "#";
         // Only target .btn-gold (Map button is now .btn-map so it's safe)
-        document.querySelectorAll(".btn-gold").forEach(btn => btn.href = waLink);
+        document.querySelectorAll(".btn-gold:not(.direction-btn)").forEach(btn => btn.href = waLink);
 
         // Mobile Menu Logic
         const hamburger = document.getElementById('hamburger-btn');
