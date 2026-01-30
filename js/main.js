@@ -1,4 +1,4 @@
-// js/main.js - SMOOTH SCROLL, COMPONENTS & LIQUID GOLD PARTICLES
+// js/main.js - FINAL STABLE VERSION
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
             smoothTouch: false,
             touchMultiplier: 2,
         });
-
         function raf(time) {
             lenis.raf(time);
             requestAnimationFrame(raf);
@@ -22,7 +21,29 @@ document.addEventListener("DOMContentLoaded", () => {
         requestAnimationFrame(raf);
     }
 
-    /* --- 1. COMPONENT LOADER SYSTEM --- */
+    /* --- 1. ANIMATION OBSERVER SETUP (Global) --- */
+    // We define this early so we can call it whenever content loads
+    const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Helper to scan for new elements to animate
+    const refreshObserver = () => {
+        document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .glass-card, .image-frame, .features-list, .map-card, .detail-card, .review-card').forEach(el => {
+            // Only observe if not already active
+            if (!el.classList.contains('active')) {
+                observer.observe(el);
+            }
+        });
+    };
+
+    /* --- 2. COMPONENT LOADER SYSTEM --- */
     const loadComponent = (placeholderId, filePath, callback) => {
         const placeholder = document.getElementById(placeholderId);
         if (!placeholder) return;
@@ -34,45 +55,43 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(html => {
                 placeholder.innerHTML = html;
+                // Run specific logic (like initNavbar)
                 if (callback) callback();
+                // CRITICAL FIX: Tell the animator new content has arrived!
+                refreshObserver(); 
             })
             .catch(error => console.error(error));
     };
 
-    /* --- 2. INITIALIZATION LOGIC --- */
+    /* --- 3. INITIALIZATION LOGIC --- */
     const initNavbar = () => {
-        // 1. Highlight Active Desktop Link
         const page = window.location.pathname.split("/").pop() || "index.html";
         document.querySelectorAll('.nav-link').forEach(l => { 
             if(l.getAttribute('href') === page) l.classList.add('active'); 
         });
 
-        // 2. Set WhatsApp Link
+        // WhatsApp Link Logic
         const waLink = typeof spaData !== 'undefined' ? spaData.contact.whatsapp : "#";
+        // Only target .btn-gold (Map button is now .btn-map so it's safe)
         document.querySelectorAll(".btn-gold").forEach(btn => btn.href = waLink);
 
-        // 3. Mobile Menu Logic (Hamburger)
+        // Mobile Menu Logic
         const hamburger = document.getElementById('hamburger-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-links a');
 
         if (hamburger && mobileMenu) {
-            // Toggle Menu
             hamburger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 hamburger.classList.toggle('active');
                 mobileMenu.classList.toggle('active');
             });
-
-            // Close Menu when a link is clicked
             mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     hamburger.classList.remove('active');
                     mobileMenu.classList.remove('active');
                 });
             });
-
-            // Close menu if clicking outside
             document.addEventListener('click', (e) => {
                 if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target) && mobileMenu.classList.contains('active')) {
                     hamburger.classList.remove('active');
@@ -90,17 +109,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if(footerBtn) footerBtn.href = spaData.contact.whatsapp;
     };
 
-    const initReviews = () => {
-        console.log("Reviews component loaded");
-    };
-    
-    // LOAD COMPONENTS
+    // Load Components
     loadComponent("nav-placeholder", "components/navbar.html", initNavbar);
-    loadComponent("reviews-placeholder", "components/reviews.html", initReviews);
+    loadComponent("reviews-placeholder", "components/reviews.html", () => console.log("Reviews Loaded")); 
     loadComponent("footer-placeholder", "components/footer.html", initFooter);
 
 
-    /* --- 3. MAIN PAGE DATA (Prices & Metro) --- */
+    /* --- 4. MAIN PAGE DATA (Prices & Metro) --- */
     if (typeof spaData !== 'undefined') {
         const metroEl = document.getElementById("metro-display");
         if(metroEl) metroEl.innerHTML = `<i class="fa-solid fa-train-subway"></i> ${spaData.contact.metro}`;
@@ -118,41 +133,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /* --- 4. SCROLL ANIMATIONS (Reveal Elements) --- */
-    const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    setTimeout(() => {
-        document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .glass-card, .image-frame, .features-list, .map-card, .detail-card, .review-card').forEach(el => observer.observe(el));
-    }, 100);
+    // Initial Scan for static HTML elements
+    setTimeout(refreshObserver, 100); 
 
 
-    /* --- 5. THE "LIQUID GOLD" PARTICLE ENGINE (Original) --- */
+    /* --- 5. LIQUID GOLD PARTICLES --- */
     const canvas = document.getElementById('sand-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let width, height;
         let particles = [];
-
-        // Config
-        const particleCount = window.innerWidth < 768 ? 50 : 100; 
+        const particleCount = window.innerWidth < 768 ? 40 : 90; 
         const connectionDistance = 140; 
         const mouseRadius = 180; 
-
-        // Mouse State
         let mouse = { x: null, y: null };
+
         window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
         window.addEventListener('touchmove', (e) => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; });
         window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
 
-        // Resize Logic
         const resize = () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
@@ -160,7 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener('resize', resize);
         resize();
 
-        // Particle Class
         class Particle {
             constructor() {
                 this.x = Math.random() * width;
@@ -170,35 +168,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.size = Math.random() * 2.5 + 0.5; 
                 this.color = 'rgba(212, 175, 55,' + (Math.random() * 0.4 + 0.1) + ')';
             }
-
             update() {
-                // Move
                 this.x += this.vx;
                 this.y += this.vy;
-
-                // Mouse Interaction
                 if (mouse.x != null) {
                     let dx = mouse.x - this.x;
                     let dy = mouse.y - this.y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
-
                     if (distance < mouseRadius) {
                         const forceDirectionX = dx / distance;
                         const forceDirectionY = dy / distance;
                         const force = (mouseRadius - distance) / mouseRadius;
                         const directionX = forceDirectionX * force * 2; 
                         const directionY = forceDirectionY * force * 2;
-
                         this.x -= directionX;
                         this.y -= directionY;
                     }
                 }
-
-                // Wrap around screen
                 if (this.x < 0 || this.x > width) this.vx = -this.vx;
                 if (this.y < 0 || this.y > height) this.vy = -this.vy;
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -217,19 +206,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const animate = () => {
             ctx.clearRect(0, 0, width, height);
-            
-            // Draw Particles
             particles.forEach(particle => {
                 particle.update();
                 particle.draw();
             });
-
-            // Draw Connections
             for (let a = 0; a < particles.length; a++) {
                 for (let b = a; b < particles.length; b++) {
                     let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
                                  + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
-                    
                     if (distance < (connectionDistance * connectionDistance)) {
                         let opacityValue = 1 - (distance / (20000)); 
                         ctx.strokeStyle = 'rgba(212, 175, 55,' + (opacityValue * 0.15) + ')'; 
@@ -243,7 +227,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             requestAnimationFrame(animate);
         };
-
         animate();
     }
 });
