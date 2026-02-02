@@ -24,7 +24,6 @@
                 <span class="subtitle">Bien-être et Tradition</span>
                 <h1>L’art du <br><span class="text-gold">Massage Thaï</span></h1>
                 <p>Une expérience immersive de guérison ancestrale au cœur du 15ème arrondissement.</p>
-
             </div>
             
             <div class="hero-image-content reveal-right">
@@ -36,7 +35,6 @@
                 </div>
             </div>
         </div>
-    
     </header>
 
     <section id="about" class="about-section">
@@ -74,35 +72,26 @@
                 
                 <div class="glass-card reveal-up" style="transition-delay: 0.1s;">
                     <div class="card-icon"><i class="fa-solid fa-hands-holding-circle"></i></div>
-                    <h3>Massage Thaï</h3>
-                    <p class="card-desc">
-                        L'alliance parfaite entre acupression, étirements et travail énergétique. 
-                        Ce soin signature libère les tensions profondes, améliore la souplesse et 
-                        rééquilibre le flux d'énergie vital (Sen) de votre corps.
-                    </p>
-                    <a href="services.html" class="nav-link" style="font-size: 0.8rem; color: var(--gold);">En savoir plus &rarr;</a>
+                    <h3 id="home-thai-title">Massage Thaï</h3>
+                    <p class="card-desc" id="home-thai-desc">
+                        </p>
+                    <a href="services.html" class="nav-link" style="font-size: 0.8rem; color: var(--gold);">En savoir plus →</a>
                 </div>
 
                 <div class="glass-card reveal-up" style="transition-delay: 0.2s;">
                     <div class="card-icon"><i class="fa-solid fa-gem"></i></div>
-                    <h3>Pierres Chaudes</h3>
-                    <p class="card-desc">
-                        Une expérience sensorielle unique. La chaleur douce des pierres volcaniques 
-                        glisse sur votre peau pour faire fondre le stress instantanément. 
-                        Idéal pour une relaxation musculaire profonde et un lâcher-prise total.
-                    </p>
-                    <a href="services.html" class="nav-link" style="font-size: 0.8rem; color: var(--gold);">En savoir plus &rarr;</a>
+                    <h3 id="home-stone-title">Pierres Chaudes</h3>
+                    <p class="card-desc" id="home-stone-desc">
+                         </p>
+                    <a href="services.html" class="nav-link" style="font-size: 0.8rem; color: var(--gold);">En savoir plus →</a>
                 </div>
 
                 <div class="glass-card reveal-up" style="transition-delay: 0.3s;">
                     <div class="card-icon"><i class="fa-solid fa-flask"></i></div>
-                    <h3>Thérapie Ventouse</h3>
-                    <p class="card-desc">
-                        Une méthode ancestrale de détoxification. En stimulant la circulation sanguine 
-                        par aspiration, ce soin cible efficacement les douleurs dorsales chroniques, 
-                        les cervicales bloquées et favorise la récupération.
-                    </p>
-                    <a href="services.html" class="nav-link" style="font-size: 0.8rem; color: var(--gold);">En savoir plus &rarr;</a>
+                    <h3 id="home-ventouse-title">Thérapie Ventouse</h3>
+                    <p class="card-desc" id="home-ventouse-desc">
+                         </p>
+                    <a href="services.html" class="nav-link" style="font-size: 0.8rem; color: var(--gold);">En savoir plus →</a>
                 </div>
 
             </div>
@@ -126,24 +115,40 @@
                 
                 <div class="map-card reveal-left">
                     <div class="map-content">
-                        <h3><i class="fa-solid fa-location-dot"></i> Nous Trouver</h3>
-                        <p class="address-text">10 rue Auguste Chabrieres, 75015 Paris</p>
                         
-                        <div class="transport-row">
-                            <span class="metro-badge m12" title="Métro 12">12</span>
-                            <span class="transport-text">Porte de Versailles</span>
-                        </div>
-                        <div class="transport-row">
-                            <span class="bus-badge">Bus 80</span>
-                            <span class="tram-badge">T2</span>
-                            <span class="tram-badge">T3a</span>
+                        <h3><i class="fa-solid fa-location-dot"></i> Nous Trouver</h3>
+                        <p class="address-text dynamic-address" style="margin-bottom: 20px;">10 rue Auguste Chabrieres, 75015 Paris</p>
+                        
+                        <div class="map-split-layout" style="display: flex; gap: 20px; align-items: flex-start; margin-bottom: 20px;">
+                            
+                            <div class="store-preview" style="flex: 0 0 120px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                                <img src="assets/images/zen-spa-storefront.jpg" alt="Devanture Liza Zen Spa" 
+                                    style="width: 100%; height: 140px; object-fit: cover; display: block;">
+                            </div>
+
+                            <div class="map-info-side" style="flex: 1;">
+                                
+                                <p id="dynamic-street-note" style="font-size: 0.8rem; color: #d9534f; font-weight: 500; font-style: italic; margin-bottom: 12px; line-height: 1.3;"></p>
+
+                                <div class="transport-row" style="margin-bottom: 8px;">
+                                    <span class="metro-badge m12" title="Métro 12">12</span>
+                                    <span class="transport-text" style="font-size: 0.85rem;">Porte de Versailles</span>
+                                </div>
+                                <div class="transport-row">
+                                    <span class="bus-badge">Bus 80</span>
+                                    <span class="tram-badge">T2</span>
+                                    <span class="tram-badge">T3a</span>
+                                </div>
+                            </div>
+
                         </div>
 
                         <a href="https://www.google.com/maps/dir/?api=1&destination=10+rue+Auguste+Chabrieres+75015+Paris" 
-                           target="_blank" 
-                           class="btn-gold direction-btn">
+                        target="_blank" 
+                        class="btn-gold direction-btn" style="width: 100%; text-align: center; justify-content: center;">
                             <i class="fa-solid fa-diamond-turn-right"></i> Lancer la Navigation
                         </a>
+
                     </div>
                 </div>
 
@@ -167,9 +172,15 @@
                     <div class="glass-card detail-card">
                         <i class="fa-regular fa-calendar-check card-icon-small"></i>
                         <div>
-                            <h4>Politique du Salon</h4>
-                            <p>Pour garantir le calme et la sérénité des lieux, <strong>la prise de rendez-vous est obligatoire.</strong></p>
-                            <a href="https://wa.me/33603693649" class="text-link">Réserver un créneau &rarr;</a>
+                            <h4>Avec ou Sans Rendez-vous</h4>
+                            
+                            <p>Nous vous accueillons avec plaisir, avec ou sans rendez-vous. Pour garantir votre créneau, nous vous conseillons de réserver.</p>
+                            
+                            <p style="font-size: 0.85rem; margin-bottom: 10px; margin-top: 10px;">Réservez votre moment :</p>
+                            
+                            <a href="https://wa.me/33603693649" target="_blank" class="text-link" style="font-weight: 600;">
+                                <i class="fa-brands fa-whatsapp"></i> Réserver par WhatsApp →
+                            </a>
                         </div>
                     </div>
 
@@ -179,7 +190,6 @@
     </section>
 
     <div id="reviews-placeholder"></div>
-
     <div id="footer-placeholder"></div>
     <div id="cookie-placeholder"></div>
 
