@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -19,7 +18,7 @@
     <div id="nav-placeholder"></div>
 
     <header class="hero" style="min-height: 50vh; padding-top: 140px; padding-bottom: 60px;">
-        <div class="hero-container" style="justify-content: center; text-align: center;">
+        <div class="hero-container">
             <div class="hero-text-content reveal-up">
                 <span class="subtitle">Bien-être et Tradition</span>
                 <h1>Carte des Soins</h1>
@@ -29,24 +28,27 @@
     </header>
 
     <section class="about-section" style="padding-top: 0;">
-        <div class="container">
-            <div class="features-list reveal-up" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
-                <span class="glass-card" style="padding: 10px 25px; font-size: 0.9rem; border-radius: 50px;">Corps</span>
-                <span class="glass-card" style="padding: 10px 25px; font-size: 0.9rem; border-radius: 50px;">Épaules</span>
-                <span class="glass-card" style="padding: 10px 25px; font-size: 0.9rem; border-radius: 50px;">Jambes</span>
-                <span class="glass-card" style="padding: 10px 25px; font-size: 0.9rem; border-radius: 50px;">Pieds</span>
-                <span class="glass-card" style="padding: 10px 25px; font-size: 0.9rem; border-radius: 50px;">Tête</span>
-                <span class="glass-card" style="padding: 10px 25px; font-size: 0.9rem; border-radius: 50px;">Dos</span>
-                <span class="glass-card" style="padding: 10px 25px; font-size: 0.9rem; border-radius: 50px;">Mains</span>
-                <span class="glass-card" style="padding: 10px 25px; font-size: 0.9rem; border-radius: 50px;">Ventre</span>
+        <div class="container reveal-up">
+            <div class="section-header" style="margin-bottom: 40px;">
+                <h3 class="text-gold" style="font-size: 1.5rem;">Zones de Soin</h3>
+            </div>
+            <div class="care-tags-container">
+                <span class="care-tag">Corps</span>
+                <span class="care-tag">Épaules</span>
+                <span class="care-tag">Jambes</span>
+                <span class="care-tag">Pieds</span>
+                <span class="care-tag">Tête</span>
+                <span class="care-tag">Dos</span>
+                <span class="care-tag">Mains</span>
+                <span class="care-tag">Ventre</span>
             </div>
         </div>
     </section>
 
     <section class="services-section">
         <div class="container">
-            
             <div class="cards-grid">
+                
                 <div class="glass-card reveal-up">
                     <div class="card-icon"><i class="fa-solid fa-hands-holding-circle"></i></div>
                     <h3>Thai Massage</h3>
@@ -60,7 +62,7 @@
                     <h3>Thérapie Ventouses</h3>
                     <p class="card-desc">Massage thérapie avec soin du visage.</p>
                     <ul class="price-list" id="ventouse-price-list">
-                         </ul>
+                        </ul>
                 </div>
 
                 <div class="glass-card reveal-up" style="transition-delay: 0.2s;">
@@ -68,11 +70,12 @@
                     <h3>Pierres Chaudes</h3>
                     <p class="card-desc">Massage du corps aux huiles chaudes et pierres chaudes.</p>
                     <ul class="price-list" id="stone-price-list">
-                         </ul>
+                        </ul>
                 </div>
+
             </div>
 
-            <p style="text-align: center; color: var(--text-body); font-size: 0.9rem; margin-top: 60px; font-style: italic; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <p style="text-align: center; color: var(--text-body); font-size: 0.9rem; margin-top: 60px; font-style: italic; max-width: 800px; margin-left: auto; margin-right: auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px;">
                 La thérapie par ventouses est une méthode de guérison ancestrale qui soulage les maux de dos, les douleurs cervicales, les maux de tête et d'autres problèmes.
             </p>
         </div>
@@ -85,25 +88,37 @@
                 <div class="divider-thai"></div>
             </div>
             
-            <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                <div class="image-frame reveal-up" style="height: 300px; border-radius: 20px;">
+            <div class="masonry-grid">
+                <div class="masonry-item reveal-up">
                     <img src="assets/images/zen-spa-room-decor2.jpg" alt="Salle de soin">
                 </div>
-                <div class="image-frame reveal-up" style="height: 300px; border-radius: 20px; transition-delay: 0.1s;">
-                    <img src="assets/images/zen-spa-frontdesk.jpg" alt="Détail massage">
+                <div class="masonry-item reveal-up">
+                    <img src="assets/images/zen-spa-frontdesk.jpg" alt="Accueil">
                 </div>
-                <div class="image-frame reveal-up" style="height: 300px; border-radius: 20px; transition-delay: 0.2s;">
-                    <img src="assets/images/zen-spa.jpg" alt="Décoration zen">
+                <div class="masonry-item reveal-up">
+                    <img src="assets/images/spa-interior.jpg" alt="Salle de soin">
                 </div>
-                <div class="image-frame reveal-up" style="height: 300px; border-radius: 20px; transition-delay: 0.3s;">
-                    <img src="assets/images/zen-spa-store-front.jpg" alt="Extérieur du salon">
+                <div class="masonry-item reveal-up">
+                    <img src="assets/images/zen-spa-reception.jpg" alt="Réception">
+                </div>
+                <div class="masonry-item reveal-up">
+                    <img src="assets/images/zen-spa-store-front.jpg" alt="Extérieur">
+                </div>
+                <div class="masonry-item reveal-up">
+                    <img src="assets/images/zen-spa-massage.jpg" alt="Massage">
+                </div>
+                <div class="masonry-item reveal-up">
+                    <img src="assets/images/zen-spa-window.jpg" alt="Détails">
+                </div>
+                <div class="masonry-item reveal-up">
+                    <img src="assets/images/spa-motto.png" alt="Devise">
                 </div>
             </div>
+
         </div>
     </section>
 
     <div id="reviews-placeholder"></div>
-
     <div id="footer-placeholder"></div>
 
     <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script> 
