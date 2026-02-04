@@ -1,30 +1,25 @@
 /* =========================================
    LIZA ZEN SPA - 'GOLDEN SERENITY' THEME
-   2026 Luxury Mobile-First Redesign - STICKY NAV
+   2026 Luxury Mobile-First Redesign - FINAL V4
    ========================================= */
 
 /* --- 1. CORE VARIABLES --- */
 :root {
-    --bg-void: #111111;       /* Softer, Richer Black */
-    
-    /* Luxury Palette */
-    --gold: #D4AF37;          /* Primary Gold */
-    --gold-soft: #F3E5AB;     /* Champagne / Vanilla */
-    --gold-dim: #8A7A57;      /* Muted Gold */
+    --bg-void: #111111;       
+    --gold: #D4AF37;          
+    --gold-soft: #F3E5AB;     
+    --gold-dim: #8A7A57;      
     
     --text-white: #FFFFFF;
-    --text-body: #B0B0B0;     /* Soft Silver */
+    --text-body: #B0B0B0;     
     
-    /* Glassmorphism */
     --glass-bg: rgba(30, 30, 30, 0.6);
     --glass-border: rgba(212, 175, 55, 0.2);
     --blur: 15px;
     
-    /* Shapes */
     --radius-soft: 30px;
     --radius-pill: 100px;
     
-    /* Fonts */
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Inter', sans-serif;
 }
@@ -64,53 +59,30 @@ a { text-decoration: none; color: inherit; transition: 0.3s ease; }
 ul { list-style: none; }
 
 
-/* --- 2. NAVIGATION (SMART PHANTOM GLASS) --- */
+/* --- 2. NAVIGATION (STICKY GLASS) --- */
 .glass-nav {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
-    padding: 20px 5%;
+    position: fixed; top: 0; left: 0; width: 100%;
+    padding: 15px 5%;
     display: flex; justify-content: space-between; align-items: center;
     z-index: 1000;
-    
-    /* Default State: Fully Transparent & Invisible Borders */
-    background: transparent;
-    border-bottom: 1px solid transparent;
-    backdrop-filter: blur(0px); /* No blur initially */
-    
-    /* Smooth Transition for background and movement */
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateY(0);
+    background: rgba(5, 5, 5, 0.85); 
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1); 
+    transition: all 0.3s ease;
 }
 
-/* State 1: Scrolled Down (Glass Mode) */
-.glass-nav.scrolled {
-    padding: 15px 5%; /* Shrinks slightly for elegance */
-    background: rgba(10, 10, 10, 0.85); /* Dark Glass */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.15); /* Subtle Gold Line */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-/* State 2: Hidden (When scrolling down) */
-.glass-nav.nav-hidden {
-    transform: translateY(-100%); /* Slides up out of view */
-    pointer-events: none; /* Prevents clicking while hidden */
-}
-
-/* Logo & Link Styles remain same */
-.logo { font-family: var(--font-heading); font-size: 1.8rem; color: var(--text-white); letter-spacing: 1px; }
+.logo { font-family: var(--font-heading); font-size: 1.6rem; color: var(--text-white); letter-spacing: 1px; }
 .logo span { color: var(--gold); font-style: italic; }
 
 .nav-right { display: flex; align-items: center; gap: 40px; }
 .nav-link { 
-    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-white); opacity: 0.7; 
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-white); opacity: 0.8; 
 }
 .nav-link:hover, .nav-link.active { opacity: 1; color: var(--gold); }
 
 .btn-gold {
     background: transparent; color: var(--gold);
-    border: 1px solid var(--gold-dim); padding: 12px 30px;
+    border: 1px solid var(--gold-dim); padding: 10px 25px;
     border-radius: var(--radius-pill); font-size: 0.75rem;
     text-transform: uppercase; letter-spacing: 2px; transition: 0.4s ease;
     display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -121,25 +93,26 @@ ul { list-style: none; }
     box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
 }
 
-/* Mobile Controls */
 .mobile-only { display: none; }
 .hamburger { cursor: pointer; padding: 10px; z-index: 1002; }
 .hamburger span { display: block; width: 25px; height: 2px; background: var(--gold); margin: 6px 0; transition: 0.3s; }
 
 .mobile-menu-overlay {
-    position: fixed; inset: 0; background: #000;
+    position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(20px);
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px;
     opacity: 0; pointer-events: none; transition: 0.4s ease; z-index: 1001;
 }
 .mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
 .mobile-links a { font-family: var(--font-heading); font-size: 2rem; color: #fff; }
 
+
 /* --- 3. HERO SECTION (With Gold Fade Image) --- */
 .hero {
     min-height: 100vh;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     text-align: center;
-    padding: 120px 20px 40px; /* Increased top padding so nav doesn't cover hero text */
+    padding: 120px 20px 40px;
     position: relative;
 }
 
@@ -172,6 +145,7 @@ ul { list-style: none; }
     border-radius: 180px 180px 0 0; /* Arch Shape */
     overflow: hidden; 
     position: relative;
+    border: 1px solid var(--gold); 
     box-shadow: 0 0 40px rgba(212, 175, 55, 0.15); /* Gold Glow */
     background: transparent;
 }
@@ -200,7 +174,7 @@ ul { list-style: none; }
 
 /* --- 4. SECTIONS & CARDS --- */
 section { padding: 100px 5%; }
-.container { margin: 0 auto; }
+.container { max-width: 1100px; margin: 0 auto; }
 
 .section-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
 .section-header h2 { font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--gold-soft); }
@@ -319,29 +293,60 @@ section { padding: 100px 5%; }
 .stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 2px; }
 
 
-/* --- 7. FOOTER --- */
+/* --- 7. FOOTER (Centralized Fix) --- */
 .footer {
     padding: 80px 5% 40px; text-align: center;
     border-top: 1px solid var(--glass-border);
     background: linear-gradient(to bottom, transparent, #000);
 }
-.footer-content { display: flex; flex-direction: column; align-items: center; gap: 40px; margin-bottom: 60px; }
+
+.footer-content { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; /* Center children horizontally */
+    gap: 40px; 
+    margin-bottom: 60px; 
+}
+
+.footer-col {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; /* Center items inside the column */
+    width: 100%;
+}
+
 .footer-tagline { color: var(--text-body); max-width: 400px; font-style: italic; }
 
-.social-links { display: flex; gap: 20px; justify-content: center; margin: 20px 0; }
+/* Icons Centered */
+.social-links { 
+    display: flex; 
+    gap: 20px; 
+    justify-content: center; /* Flex center */
+    margin: 20px auto; 
+}
 .social-links a { 
     width: 45px; height: 45px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); 
     display: flex; align-items: center; justify-content: center; color: #fff;
 }
 .social-links a:hover { background: var(--gold); color: #000; border-color: var(--gold); }
 
-.links-col { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-.links-col ul { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; padding: 0; }
+/* Links Centered */
+.links-col ul { 
+    display: flex; 
+    gap: 25px; 
+    flex-wrap: wrap; 
+    justify-content: center; /* Flex center */
+    padding: 0;
+}
 .links-col a { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-body); }
 .links-col a:hover { color: var(--gold); }
 
-.contact-col { display: flex; flex-direction: column; align-items: center; color: var(--text-body); font-size: 0.9rem; }
-.contact-col h4 { display: none; }
+/* Contact Centered */
+.contact-col { 
+    display: flex; flex-direction: column; align-items: center; 
+    color: var(--text-body); font-size: 0.9rem; 
+}
+.contact-col h4 { display: none; } /* Hide duplicate "Nous Trouver" title in footer if prefer cleaner look */
 .contact-col p { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; justify-content: center; }
 .contact-col i { color: var(--gold); }
 
@@ -358,6 +363,7 @@ section { padding: 100px 5%; }
     .image-frame { max-width: 100%; height: 350px; }
     
     .info-layout { grid-template-columns: 1fr; }
+    
     .map-card { flex-direction: column; }
     .map-visual { width: 100%; height: 200px; }
     .map-info { width: 100%; text-align: center; }
