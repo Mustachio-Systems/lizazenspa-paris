@@ -1,6 +1,6 @@
 /* =========================================
    LIZA ZEN SPA - 'GOLDEN SERENITY' THEME
-   2026 Luxury Mobile-First Redesign - FINAL V6
+   2026 Luxury Mobile-First Redesign - FINAL V7 (Fixed Menu)
    ========================================= */
 
 /* --- 1. CORE VARIABLES --- */
@@ -37,6 +37,11 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Scroll Lock Class for Mobile Menu */
+body.menu-open {
+    overflow: hidden;
+}
+
 /* Texture Overlay */
 body::before {
     content: ""; position: fixed; inset: 0;
@@ -64,11 +69,17 @@ ul { list-style: none; }
     position: fixed; top: 0; left: 0; width: 100%;
     padding: 15px 5%;
     display: flex; justify-content: space-between; align-items: center;
-    z-index: 1000;
+    /* Z-INDEX 100: Nav sits ON TOP of the menu overlay */
+    z-index: 100; 
     background: rgba(5, 5, 5, 0.85); 
     backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(212, 175, 55, 0.1); 
     transition: all 0.3s ease;
+}
+
+/* Hide nav when scrolling down */
+.glass-nav.nav-hidden {
+    transform: translateY(-100%);
 }
 
 .logo { font-family: var(--font-heading); font-size: 1.6rem; color: var(--text-white); letter-spacing: 1px; }
@@ -94,17 +105,92 @@ ul { list-style: none; }
 }
 
 .mobile-only { display: none; }
-.hamburger { cursor: pointer; padding: 10px; z-index: 1002; }
-.hamburger span { display: block; width: 25px; height: 2px; background: var(--gold); margin: 6px 0; transition: 0.3s; }
 
-.mobile-menu-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-    backdrop-filter: blur(20px);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px;
-    opacity: 0; pointer-events: none; transition: 0.4s ease; z-index: 1001;
+/* --- HAMBURGER MENU --- */
+.hamburger {
+    cursor: pointer; 
+    padding: 10px; 
+    z-index: 101; /* Sit above nav background */
+    width: 35px;
+    height: 30px;
+    position: relative;
 }
-.mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
-.mobile-links a { font-family: var(--font-heading); font-size: 2rem; color: #fff; }
+
+.hamburger span {
+    display: block; 
+    width: 100%; 
+    height: 2px; 
+    background: var(--gold); 
+    position: absolute;
+    left: 0;
+    transition: 0.3s ease;
+}
+
+.hamburger span:nth-child(1) { top: 5px; }
+.hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.hamburger span:nth-child(3) { bottom: 5px; }
+
+/* Hamburger Animation to 'X' */
+.hamburger.active span:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+}
+
+/* --- MOBILE MENU OVERLAY (Fixed Structure) --- */
+.mobile-menu-overlay {
+    position: fixed; 
+    inset: 0; 
+    /* Z-INDEX 90: Sits BEHIND the nav bar (100) so the X button is clickable */
+    z-index: 90; 
+    background: rgba(0,0,0,0.98);
+    backdrop-filter: blur(20px);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: 0.4s ease;
+}
+
+.mobile-menu-overlay.active { 
+    opacity: 1; 
+    pointer-events: all; 
+}
+
+/* Mobile Links Animation */
+.mobile-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding-top: 60px; /* Space for nav bar */
+}
+
+.mobile-links a {
+    font-family: var(--font-heading); 
+    font-size: 2.5rem; 
+    color: #fff;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Staggered Reveal when Active */
+.mobile-menu-overlay.active .mobile-links a {
+    opacity: 1;
+    transform: translateY(0);
+}
+.mobile-menu-overlay.active .mobile-links a:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu-overlay.active .mobile-links a:nth-child(2) { transition-delay: 0.2s; }
+.mobile-menu-overlay.active .mobile-links a:nth-child(3) { transition-delay: 0.3s; }
+
+.mobile-links a:hover {
+    color: var(--gold);
+    transform: scale(1.1);
+}
 
 
 /* --- 3. HERO SECTION --- */
@@ -137,35 +223,27 @@ ul { list-style: none; }
 
 .hero p { font-size: 1.1rem; max-width: 500px; margin: 0 auto; font-weight: 300; opacity: 0.9; }
 
-/* --- NEW LUXURY PORTAL HERO IMAGE FRAME --- */
 .hero-image-content { width: 100%; display: flex; justify-content: center; }
 
 .image-frame.luxury-portal {
     width: 100%;
-    max-width: 380px; /* Slightly wider for elegance */
-    height: 500px;    /* Taller for a grand feel */
-    
-    /* The new Portal Shape: Rounded top corners, flat bottom */
+    max-width: 380px; 
+    height: 500px;    
     border-radius: 200px 200px 30px 30px; 
-    
     overflow: hidden; 
     position: relative;
-    
-    /* Luxury Double Border Effect */
     box-shadow: 
-        inset 0 0 0 4px rgba(212, 175, 55, 0.3), /* Inner gold glow ring */
-        0 0 50px rgba(212, 175, 55, 0.2);       /* Outer soft glow */
-    
+        inset 0 0 0 4px rgba(212, 175, 55, 0.3), 
+        0 0 50px rgba(212, 175, 55, 0.2); 
     background: transparent;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Hover Effect for the Portal */
 .image-frame.luxury-portal:hover {
     transform: translateY(-5px);
     box-shadow: 
-        inset 0 0 0 4px rgba(212, 175, 55, 0.5), /* Brighter inner glow */
-        0 10px 60px rgba(212, 175, 55, 0.3);     /* Stronger outer glow */
+        inset 0 0 0 4px rgba(212, 175, 55, 0.5), 
+        0 10px 60px rgba(212, 175, 55, 0.3);     
 }
 
 .image-frame.luxury-portal img { 
@@ -173,15 +251,12 @@ ul { list-style: none; }
     object-fit: fill; 
     opacity: 0.95; 
     transition: transform 2s ease;
-    
-    /* Smoother Fade Effect */
     -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
 
 .image-frame.luxury-portal:hover img { transform: scale(1.03); }
 
-/* Badge remains same */
 .floating-badge {
     position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
     background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(10px);
@@ -231,7 +306,6 @@ section { padding: 100px 5%; }
 }
 .price-list li strong { color: var(--gold-soft); font-weight: 400; }
 
-/* CARE MAP TAGS (Fixed "Broken" Look) */
 .features-list span {
     background: rgba(255,255,255,0.05);
     border: 1px solid var(--glass-border);
@@ -243,7 +317,6 @@ section { padding: 100px 5%; }
     display: inline-block;
 }
 .features-list span:hover { border-color: var(--gold); color: var(--gold); }
-
 
 /* --- 5. INFO SECTION --- */
 .info-layout {
@@ -271,7 +344,6 @@ section { padding: 100px 5%; }
 
 .address-text { font-size: 1.1rem; color: var(--text-white); margin-bottom: 15px; }
 
-/* Transport Rows (Fixed Full Width) */
 .transport-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; width: 100%; }
 .metro-badge {
     width: 28px; height: 28px; border-radius: 50%;
@@ -287,7 +359,7 @@ section { padding: 100px 5%; }
     padding: 12px 0; border-radius: var(--radius-pill); 
     font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
     text-align: center; transition: 0.3s;
-    display: block; /* Ensure it takes width */
+    display: block; 
 }
 .direction-btn:hover { background: var(--gold); color: #000; }
 
@@ -307,7 +379,6 @@ section { padding: 100px 5%; }
 }
 .text-link:hover { border-color: var(--gold); }
 
-
 /* --- 6. REVIEWS --- */
 .reviews-scroller {
     display: flex; gap: 20px; overflow-x: auto; padding: 10px 0 30px;
@@ -325,7 +396,6 @@ section { padding: 100px 5%; }
 .review-text { font-style: italic; font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
 .reviewer-initial { width: 40px; height: 40px; background: var(--gold); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 10px; }
 .stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 2px; }
-
 
 /* --- 7. FOOTER --- */
 .footer {
@@ -356,8 +426,7 @@ section { padding: 100px 5%; }
 
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; font-size: 0.75rem; color: #555; }
 
-
-/* --- 8. MOBILE RESPONSIVENESS (FIXED) --- */
+/* --- 8. MOBILE RESPONSIVENESS --- */
 @media (max-width: 900px) {
     .desktop-only { display: none !important; }
     .mobile-only { display: flex; align-items: center; gap: 15px; }
@@ -365,15 +434,12 @@ section { padding: 100px 5%; }
     .hero { padding-top: 120px; padding-bottom: 60px; min-height: auto; }
     .hero h1 { font-size: 3.5rem; }
     
-    /* FIX: Image now 100% width on mobile */
     .image-frame { max-width: 100%; width: 100%; height: 350px; }
     
     .info-layout { grid-template-columns: 1fr; }
     
-    /* Map Card Mobile */
     .map-card { flex-direction: column; }
     
-    /* FIX: Full image on mobile */
     .map-visual { width: 100%; height: auto; min-height: 250px; }
     
     .map-info { width: 100%; text-align: center; padding: 25px; }
@@ -381,6 +447,9 @@ section { padding: 100px 5%; }
     
     .links-col ul { flex-direction: column; gap: 10px; }
     .review-card { min-width: 280px; }
+    
+    /* Adjust mobile menu for smaller screens */
+    .mobile-links a { font-size: 2rem; }
 }
 
 /* Animations */
@@ -401,82 +470,29 @@ section { padding: 100px 5%; }
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
-/* --- NEW: LUXURY MASONRY GALLERY (For Atmosphere) --- */
-.masonry-grid {
-    column-count: 3;
-    column-gap: 20px;
-}
-
+/* Masonry Gallery */
+.masonry-grid { column-count: 3; column-gap: 20px; }
 .masonry-item {
-    break-inside: avoid;
-    margin-bottom: 20px;
-    border-radius: 16px;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid var(--glass-border);
+    break-inside: avoid; margin-bottom: 20px; border-radius: 16px;
+    overflow: hidden; position: relative; border: 1px solid var(--glass-border);
     transition: transform 0.4s ease;
 }
+.masonry-item img { width: 100%; height: auto; display: block; transition: transform 0.7s ease; }
+.masonry-item:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.masonry-item:hover img { transform: scale(1.05); }
 
-.masonry-item img {
-    width: 100%;
-    height: auto; /* Let height be natural */
-    display: block;
-    transition: transform 0.7s ease;
-}
-
-.masonry-item:hover {
-    transform: translateY(-5px);
-    border-color: var(--gold);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.masonry-item:hover img {
-    transform: scale(1.05);
-}
-
-/* --- REFINED CARE MAP TAGS --- */
-.care-tags-container {
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: center; 
-    gap: 15px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
+/* Care Map Tags */
+.care-tags-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; max-width: 800px; margin: 0 auto; }
 .care-tag {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    color: var(--text-white);
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    cursor: default;
+    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--text-white); padding: 12px 30px; border-radius: 50px;
+    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;
+    transition: all 0.3s ease; cursor: default;
 }
+.care-tag:hover { background: var(--gold); color: #000; border-color: var(--gold); transform: scale(1.05); }
 
-.care-tag:hover {
-    background: var(--gold);
-    color: #000;
-    border-color: var(--gold);
-    transform: scale(1.05);
-}
-
-/* --- MOBILE ADJUSTMENTS --- */
-@media (max-width: 900px) {
-    .masonry-grid {
-        column-count: 2; /* 2 columns on tablets */
-    }
-}
-
-@media (max-width: 600px) {
-    .masonry-grid {
-        column-count: 1; /* 1 column on phones */
-    }
-    .care-tag {
-        padding: 10px 20px;
-        font-size: 0.75rem;
-    }
+@media (max-width: 900px) { .masonry-grid { column-count: 2; } }
+@media (max-width: 600px) { 
+    .masonry-grid { column-count: 1; } 
+    .care-tag { padding: 10px 20px; font-size: 0.75rem; }
 }

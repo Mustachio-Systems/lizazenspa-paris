@@ -1,11 +1,10 @@
-// js/main.js - 'BRIGHT GOLDEN PARTICLES' (No Connections)
-// High density, bright luxury particles without lines.
-
+// js/main.js
 document.addEventListener("DOMContentLoaded", () => {
 
     /* --- 0. LUXURY SMOOTH SCROLL (Lenis) --- */
+    let lenis;
     if (typeof Lenis !== 'undefined') {
-        const lenis = new Lenis({
+        lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             direction: 'vertical',
@@ -54,46 +53,66 @@ document.addEventListener("DOMContentLoaded", () => {
         const hamburger = document.getElementById('hamburger-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-links a');
+        const navbar = document.querySelector('.glass-nav');
 
         if (hamburger && mobileMenu) {
+            
+            // Toggle Menu
             hamburger.addEventListener('click', (e) => {
                 e.stopPropagation();
+                const isActive = hamburger.classList.contains('active');
+                
                 hamburger.classList.toggle('active');
                 mobileMenu.classList.toggle('active');
+
+                // Toggle Body Scroll
+                if (!isActive) {
+                    document.body.classList.add('menu-open');
+                    if(lenis) lenis.stop();
+                } else {
+                    document.body.classList.remove('menu-open');
+                    if(lenis) lenis.start();
+                }
             });
+
+            // Close menu when clicking a link
             mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     hamburger.classList.remove('active');
                     mobileMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    if(lenis) lenis.start();
                 });
             });
-            document.addEventListener('click', (e) => {
-                if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+
+            // Close menu when clicking the dark overlay background
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target === mobileMenu) { 
                     hamburger.classList.remove('active');
                     mobileMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    if(lenis) lenis.start();
                 }
             });
         }
 
+        // Navbar Hide/Show on Scroll
         let lastScrollY = window.scrollY;
-        const navbar = document.querySelector('.glass-nav');
-
+        
         window.addEventListener('scroll', () => {
+            if(document.body.classList.contains('menu-open')) return;
+
             const currentScrollY = window.scrollY;
 
-            // 1. Glass Effect Logic (Adds background when not at top)
             if (currentScrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
 
-            // 2. Hide/Show Logic
-            // If scrolling DOWN and we are past the hero section (> 200px)
             if (currentScrollY > lastScrollY && currentScrollY > 200) {
                 navbar.classList.add('nav-hidden');
             } else {
-                // If scrolling UP, show it immediately
                 navbar.classList.remove('nav-hidden');
             }
 
@@ -140,7 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
             renderList("ventouse-price-list", spaData.prices.ventouse);
         }
         
-        // Dynamic Street Note Logic
         const noteEl = document.getElementById('dynamic-street-note');
         if(noteEl && spaData.contact.streetViewNote) {
             noteEl.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${spaData.contact.streetViewNote}`;
@@ -149,19 +167,18 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(refreshObserver, 200);
 
 
-    /* --- 5. GOLDEN PARTICLES ANIMATION (NO LINES) --- */
+    /* --- 5. GOLDEN PARTICLES ANIMATION --- */
     const canvas = document.getElementById('sand-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let width, height;
         let stars = [];
         
-        // Configuration: High density, bright stars
         const config = {
             starCount: window.innerWidth < 768 ? 90 : 180, 
             starSize: 1.5,
             moveSpeed: 0.2, 
-            starColor: "212, 175, 55", // Gold RGB
+            starColor: "212, 175, 55",
         };
 
         const resize = () => {
@@ -181,7 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.vx = (Math.random() - 0.5) * config.moveSpeed;
                 this.vy = (Math.random() - 0.5) * config.moveSpeed;
                 this.size = Math.random() * config.starSize + 0.5;
-                // High brightness: opacity between 0.6 and 1.0
                 this.opacity = Math.random() * 0.4 + 0.6; 
             }
 
@@ -189,7 +205,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Bounce off edges
                 if (this.x < 0 || this.x > width) this.vx *= -1;
                 if (this.y < 0 || this.y > height) this.vy *= -1;
             }
@@ -212,13 +227,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const animate = () => {
             ctx.clearRect(0, 0, width, height);
-
-            // Only update and draw stars. No connections.
             stars.forEach(star => {
                 star.update();
                 star.draw();
             });
-
             requestAnimationFrame(animate);
         };
         animate();

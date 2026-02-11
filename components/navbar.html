@@ -13,17 +13,20 @@
         <a href="https://wa.me/33603693649" style="color: var(--gold); font-size: 1.2rem;">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
+        <!-- Hamburger stays inside the nav bar -->
         <div class="hamburger" id="hamburger-btn">
             <span></span>
             <span></span>
             <span></span>
         </div>
     </div>
-
-    <div class="mobile-menu-overlay" id="mobile-menu">
-        <div class="mobile-links">
-            <a href="index.html">Accueil</a>
-            <a href="services.html">Carte des Soins</a>
-        </div>
-    </div>
 </nav>
+
+<!-- Menu Overlay is now OUTSIDE the nav to fix the display bug -->
+<div class="mobile-menu-overlay" id="mobile-menu">
+    <div class="mobile-links">
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Carte des Soins</a>
+        <a href="https://wa.me/33603693649">Réserver</a>
+    </div>
+</div>
